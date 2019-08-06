@@ -1,0 +1,50 @@
+spi主要结构体：
+struct spi_master
+struct spi_driver
+struct spi_tansfer //一次传输的数据
+struct spi_message //这个结构体将多个struct spi_tansfer链接在一起
+
+SPI外设驱动遍布于内核的drivers、sound的各个子目录之下,SPI只是一种总线,spi_driver的作用只是将SPI外设挂接在该总线上,因此在 spi_driver的probe成员函数中,将注册SPI外设本身所属设备驱动的类型
+
+和platform_driver 对应着一个platform_device 一样，spi_driver 也对应着一个spi_device。platform_device 需要在BSP 文件（即arch）中添加板信息数据，而spi_device
+也需要，spi_device 的板级信息用spi_board_info 结构体来描述，该结构体记录SPI 外设使用的主机控制器序号、片选序号、比特率、SPI 传输模式等。在系统startup 过程中，会通
+过前面提到的init_machine 来对spi_register_board_info()进行调用，将spi 的设备信息注册进系统。
+
+通过spi_message_init()可以初始化spi_message，而将spi_transfer 添加到spi_message 队
+列的方法则是：
+void spi_message_add_tail(struct spi_transfer *t, struct spi_message *m);
+发起一次spi_message 的传输有同步和异步两种方式，使用同步API 时，会阻塞等待这个消
+息被处理完。同步操作时使用的API 是：
+int spi_sync(struct spi_device *spi, struct spi_message *message);
+
+使用异步API 时，不会阻塞等待这个消息被处理完，但是可以在spi_message 的complete
+字段挂接一个回调函数，当消息被处理完成后，该函数会被调用。异步操作时使用的API
+是：
+int spi_async(struct spi_device *spi, struct spi_message *message);
+
+下面代码是非常典型的初始化spi_transfer、spi_message 并进行SPI 数据传输的例子，同时
+它们也是SPI 核心层的2 个通用API，在SPI 外设驱动中可以直接调用它们进行写和读操作。
+static inline int
+spi_write(struct spi_device *spi, const u8 *buf, size_t len)
+{
+	struct spi_transfer t = {
+	.tx_buf = buf,
+	.len = len,
+	};
+	struct spi_message m;
+	spi_message_init(&m);
+	spi_message_add_tail(&t, &m);
+	return spi_sync(spi, &m);
+}
+static inline int
+spi_read(struct spi_device *spi, u8 *buf, size_t len)
+{
+	struct spi_transfer t = {
+	.rx_buf = buf,
+	.len = len,
+	};
+	struct spi_message m;
+	spi_message_init(&m);
+	spi_message_add_tail(&t, &m);
+	return spi_sync(spi, &m);
+}

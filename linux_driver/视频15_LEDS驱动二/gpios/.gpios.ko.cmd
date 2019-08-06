@@ -1,0 +1,1 @@
+cmd_/home/topeet/gpios/gpios.ko := /usr/local/arm/arm-2009q3/bin/arm-none-linux-gnueabi-ld -EL -r  -T /home/topeet/android4.0/iTop4412_Kernel_3.0/scripts/module-common.lds --build-id  -o /home/topeet/gpios/gpios.ko /home/topeet/gpios/gpios.o /home/topeet/gpios/gpios.mod.o

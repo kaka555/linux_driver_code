@@ -1,0 +1,15 @@
+欢迎大家观看迅为驱动视频教程。
+本期视频写一个独立按键的中断例程
+
+request_irq
+free_irq
+IRQ_EINT
+
+1.在led的基础上修改
+2.添加request_irq、free_irq以及中断处理函数
+记得去掉GPIO_BUTTON以及添加平台文件
+
+通过命令： cat /proc/interrupts查看中断
+
+
+

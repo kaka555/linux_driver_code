@@ -1,0 +1,2 @@
+该tty模块会自动回显接收到的数据，设备结点的名字为tttyn，其中n为0,1,2,3，用echo kaka > ttty0或echo kaka >> ttty0便能在/var/log/syslog末尾看到write函数打印的信息，用cat ttty0每20s就能看到屏幕输出tttttttttt，这是因为linux的缓冲机制，使得没有某些符号时不会将东西打印出来
+模块中用定时器模拟tty设备的输入，开启了回显功能，开启每次打印后加入换行符的功能

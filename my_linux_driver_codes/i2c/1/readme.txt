@@ -1,0 +1,1 @@
+该文件只使用了i2c_add_numbered_adapter注册适配器，注册完成后会在/dev目录下生成i2c-%d的设备文件，该文件是一个主设备号89，次设备号%d的字符设备，通过echo命令便会调用master_xfer使适配器传输数据到I2C总线上
