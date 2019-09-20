@@ -77,3 +77,20 @@ all:
 clean:
     rm -rf *.o
 
+
+https://blog.csdn.net/msccreater/article/details/9998255
+~/.bash_profile
+# .bashrc
+
+# User specific aliases and functions
+
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+
+PS1="\[\e[36;1m\]\u:\[\e[33;1m\]\w \[\$\e[m\] "
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+    . /etc/bashrc
+fi
