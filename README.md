@@ -42,6 +42,7 @@ nmap <F5> :!find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.h
                         \ :!cscope -b -i cscope.files -f cscope.out<CR>
                                                 \ :cs reset<CR>
 set hlsearch
+set tags=/my/lizhe/kernel-4.4/tags
 cs add /my/kernel-4.4/cscope.out /my/kernel-4.4/
 
 nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR>
