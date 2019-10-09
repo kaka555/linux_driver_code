@@ -89,6 +89,7 @@ alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
 
+.bash_profile
 PS1="\[\e[36;1m\]\u:\[\e[33;1m\]\w \[\$\e[m\] "
 
 # Source global definitions
