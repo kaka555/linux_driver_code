@@ -96,3 +96,5 @@ PS1="\[\e[36;1m\]\u:\[\e[33;1m\]\w \[\$\e[m\] "
 if [ -f /etc/bashrc ]; then
     . /etc/bashrc
 fi
+alias kgrep='grep -nrI --exclude=cscope.out --exclude=tags --exclude=System.map'
+alias ....='cd ../../../'
